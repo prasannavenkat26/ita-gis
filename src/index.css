@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: 250 249 242;
+    --color-surface: 255 255 251;
+    --color-surface-alt: 243 242 232;
+    --color-line: 220 224 207;
+    --color-text: 34 58 41;
+    --color-text-muted: 105 121 91;
+  }
+
+  .dark {
+    --color-bg: 20 39 29;
+    --color-surface: 30 55 39;
+    --color-surface-alt: 39 66 47;
+    --color-line: 59 83 63;
+    --color-text: 239 242 228;
+    --color-text-muted: 182 194 164;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    background: rgb(var(--color-bg));
+  }
+
+  body {
+    @apply bg-[#faf9f2] text-forest-900 dark:bg-[#14271d] dark:text-forest-50;
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(234, 196, 90, 0.08), transparent 24rem),
+      linear-gradient(180deg, #fbfaf5 0%, #f2f1e7 100%);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    letter-spacing: -0.01em;
+  }
+
+  .dark body {
+    background-image: linear-gradient(180deg, #14271d 0%, #1b3022 100%);
+  }
+
+  .dark .text-forest-300 {
+    color: #c1ceb0;
+  }
+
+  .dark .text-forest-400 {
+    color: #b7c5a5;
+  }
+
+  .dark .text-forest-500 {
+    color: #bdcba9;
+  }
+
+  .dark .text-forest-600 {
+    color: #d3ddc2;
+  }
+
+  .dark .text-forest-700 {
+    color: #e2e8d5;
+  }
+
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-lime2-400;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-forest-300/45 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-forest-400/60;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-[#fffefa]/95 dark:bg-forest-900/95 backdrop-blur-md border border-[#e3e5d7] dark:border-forest-700/60;
+    box-shadow: 0 2px 16px rgba(43, 55, 42, 0.04);
+  }
+
+  .glass-strong {
+    @apply bg-[#fffefa]/95 dark:bg-forest-900/95 backdrop-blur-xl border border-[#e3e5d7] dark:border-forest-700/70;
+    box-shadow: 0 8px 26px rgba(43, 55, 42, 0.07);
+  }
+
+  .card-3d {
+    @apply bg-[#fffefa] dark:bg-forest-900 rounded-[22px] border border-[#e3e5d7] dark:border-forest-800/80;
+    box-shadow: 0 2px 5px rgba(43, 55, 42, 0.035), 0 12px 32px rgba(43, 55, 42, 0.045);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+
+  .card-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(43, 55, 42, 0.08);
+    border-color: #c9d4bb;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#557744] text-white font-bold
+           shadow-sm transition-all hover:bg-[#3f6139] hover:shadow-md active:scale-[0.99]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#fffefa] dark:bg-forest-900
+           text-forest-700 dark:text-forest-100 font-bold border border-[#e1e4d6] dark:border-forest-700
+           transition-all hover:bg-[#f5f6ed] dark:hover:bg-forest-800 active:scale-[0.99]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-forest-600 dark:text-forest-200
+           font-medium transition-all hover:bg-forest-100/80 dark:hover:bg-forest-800/80 active:scale-[0.98];
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#eac45a] text-[#283921] font-extrabold
+           shadow-[0_8px_24px_rgba(187,143,45,0.2)] transition-all hover:bg-[#dfb449] hover:shadow-[0_12px_28px_rgba(187,143,45,0.28)] active:scale-[0.99]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-field {
+    @apply w-full px-3.5 py-2.5 rounded-xl bg-[#fffefa] dark:bg-forest-800 border border-[#e1e4d6] dark:border-forest-700
+           text-forest-900 dark:text-forest-50 placeholder:text-forest-400 dark:placeholder:text-forest-600
+           transition-all focus:border-forest-400 focus:ring-2 focus:ring-forest-400/20
+           disabled:opacity-50;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .skeleton {
+    @apply bg-gradient-to-r from-forest-100 via-forest-200/55 to-forest-100 dark:from-forest-800 dark:via-forest-700/50 dark:to-forest-800
+           bg-[length:1000px_100%] animate-shimmer rounded-lg;
+  }
+
+  .feature-bento-grid {
+    grid-auto-rows: minmax(210px, auto);
+  }
+
+  .feature-bento-grid > :nth-child(1),
+  .feature-bento-grid > :nth-child(5) {
+    grid-column: span 2;
+  }
+}
+
+.landing-photo-hero {
+  background-image:
+    linear-gradient(180deg, rgba(15, 35, 23, 0.12) 0%, rgba(15, 35, 23, 0.32) 38%, rgba(15, 35, 23, 0.76) 100%),
+    url('/farm-fields.jpg');
+  background-size: cover;
+  background-position: center 56%;
+}
+
+.dashboard-photo-hero {
+  background-image:
+    linear-gradient(90deg, rgba(20, 39, 29, 0.82) 0%, rgba(20, 39, 29, 0.64) 58%, rgba(20, 39, 29, 0.4) 100%),
+    url('/farm-fields.jpg');
+  background-size: cover;
+  background-position: center 58%;
+  box-shadow: 0 16px 38px rgba(34, 58, 41, 0.16);
+}
+
+.auth-photo-panel {
+  background-image:
+    linear-gradient(180deg, rgba(20, 39, 29, 0.26), rgba(20, 39, 29, 0.84)),
+    url('/farm-fields.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.leaflet-container {
+  background: #223a29;
+  font-family: 'Manrope', sans-serif;
+}
+
+.leaflet-control-zoom a {
+  background: rgba(255,255,255,0.9) !important;
+  color: #223a29 !important;
+  border: 1px solid rgba(34,58,41,0.12) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 3px 10px rgba(34,58,41,0.12) !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 18px !important;
+  transition: all 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover {
+  background: white !important;
+  box-shadow: 0 5px 16px rgba(34,58,41,0.16) !important;
+}
+
+.leaflet-bar {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.leaflet-control-zoom {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(34,58,41,0.18) !important;
+  padding: 4px 8px !important;
+}
+
+.leaflet-popup-content {
+  margin: 8px 12px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  color: #223a29 !important;
+}
+
+.leaflet-popup-tip {
+  background: white !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(255,255,255,0.7) !important;
+  font-size: 10px !important;
+  border-radius: 4px 0 0 0 !important;
+  padding: 2px 6px !important;
+}
+
+.leaflet-control-scale-line {
+  background: rgba(255,255,255,0.8) !important;
+  border-color: rgba(34,58,41,0.2) !important;
+  color: #223a29 !important;
+  border-radius: 4px !important;
+  font-size: 10px !important;
+}
+
+.leaflet-draw-toolbar a {
+  background: rgba(255,255,255,0.95) !important;
+  border: 1px solid rgba(34,58,41,0.12) !important;
+  border-radius: 8px !important;
+  width: 36px !important;
+  height: 36px !important;
+  box-shadow: 0 3px 10px rgba(34,58,41,0.12) !important;
+}
+
+/* Custom polygon styling */
+.farm-polygon {
+  stroke: #668f52;
+  stroke-width: 2;
+  stroke-opacity: 0.8;
+  fill: #668f52;
+  fill-opacity: 0.15;
+}
+
+.farm-polygon-selected {
+  stroke: #eac45a;
+  stroke-width: 3;
+  stroke-opacity: 1;
+  fill: #eac45a;
+  fill-opacity: 0.2;
+}
+
+.irrigation-marker {
+  filter: drop-shadow(0 2px 4px rgba(23,38,56,0.2));
+}
+
+@media (max-width: 767px) {
+  .feature-bento-grid > :nth-child(1),
+  .feature-bento-grid > :nth-child(5) {
+    grid-column: span 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

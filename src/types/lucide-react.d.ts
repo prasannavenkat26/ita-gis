@@ -1,0 +1,57 @@
+declare module 'lucide-react' {
+  type IconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
+
+  export type LucideIcon = IconComponent;
+  export type Icon = IconComponent;
+
+  export const LayoutDashboard: IconComponent;
+  export const Map: IconComponent;
+  export const Tractor: IconComponent;
+  export const Sprout: IconComponent;
+  export const Droplets: IconComponent;
+  export const BarChart3: IconComponent;
+  export const Settings: IconComponent;
+  export const X: IconComponent;
+  export const AlertTriangle: IconComponent;
+  export const CircleAlert: IconComponent;
+  export const Info: IconComponent;
+  export const Menu: IconComponent;
+  export const Search: IconComponent;
+  export const Sun: IconComponent;
+  export const Moon: IconComponent;
+  export const LogOut: IconComponent;
+  export const ChevronRight: IconComponent;
+  export const Loader2: IconComponent;
+  export const Inbox: IconComponent;
+  export const MapPin: IconComponent;
+  export const Trash2: IconComponent;
+  export const Check: IconComponent;
+  export const User: IconComponent;
+  export const HelpCircle: IconComponent;
+  export const Mail: IconComponent;
+  export const Lock: IconComponent;
+  export const ArrowRight: IconComponent;
+  export const Cloud: IconComponent;
+  export const Satellite: IconComponent;
+  export const Cpu: IconComponent;
+  export const Radio: IconComponent;
+  export const Key: IconComponent;
+  export const ExternalLink: IconComponent;
+  export const BookOpen: IconComponent;
+  export const TrendingUp: IconComponent;
+  export const Ruler: IconComponent;
+  export const Download: IconComponent;
+  export const Calendar: IconComponent;
+  export const Filter: IconComponent;
+  export const Plus: IconComponent;
+  export const Pencil: IconComponent;
+  export const ChevronLeft: IconComponent;
+  export const ArrowUpDown: IconComponent;
+  export const Layers: IconComponent;
+  export const Crosshair: IconComponent;
+  export const Save: IconComponent;
+  export const Upload: IconComponent;
+  export const ShieldCheck: IconComponent;
+  export const FileUp: IconComponent;
+  export const RadioTower: IconComponent;
+}
