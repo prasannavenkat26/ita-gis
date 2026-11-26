@@ -49,6 +49,18 @@ class FarmGisApiTests(unittest.TestCase):
         )
         self.assertEqual(invalid_login.status_code, 401)
 
+    def test_password_reset_requires_a_valid_email_payload(self) -> None:
+        invalid = self.client.post(
+            "/api/auth/password-reset",
+            json={"email": "invalid-email"},
+        )
+        self.assertEqual(invalid.status_code, 422)
+        unconfigured = self.client.post(
+            "/api/auth/password-reset",
+            json={"email": "farmer@example.com"},
+        )
+        self.assertEqual(unconfigured.status_code, 501)
+
     def test_farm_and_irrigation_are_persisted_and_user_scoped(self) -> None:
         first_token = self.register_and_login()
         first_auth = {"Authorization": f"Bearer {first_token}"}

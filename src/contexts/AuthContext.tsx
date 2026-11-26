@@ -101,9 +101,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  const resetPassword = async () => {
+  const resetPassword = async (email: string) => {
     try {
-      await apiRequest<void>('/auth/password-reset', { method: 'POST' });
+      await apiRequest<void>('/auth/password-reset', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      });
       return { error: null };
     } catch (error) {
       return { error: error instanceof ApiError ? error.message : 'Password reset is unavailable.' };

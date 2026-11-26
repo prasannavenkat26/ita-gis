@@ -191,6 +191,10 @@ class Credentials(BaseModel):
     password: str = Field(min_length=8, max_length=128)
 
 
+class PasswordResetPayload(BaseModel):
+    email: str = Field(min_length=3, max_length=254)
+
+
 class BoundaryPayload(BaseModel):
     boundary: dict[str, Any] | None = None
 
@@ -558,7 +562,10 @@ def demo_login() -> dict[str, Any]:
 
 
 @app.post("/api/auth/password-reset")
-def password_reset() -> None:
+def password_reset(payload: PasswordResetPayload) -> None:
+    email = payload.email.strip().lower()
+    if "@" not in email or email.startswith("@") or email.endswith("@"):
+        raise HTTPException(status_code=422, detail="Enter a valid email address")
     raise HTTPException(
         status_code=501,
         detail="Password-reset email delivery is not configured for this local deployment.",
