@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { apiRequest, AUTH_TOKEN_KEY, ApiError } from '@/lib/api';
+import { LOCAL_DEMO_TOKEN, LOCAL_DEMO_USER_KEY } from '@/lib/demoApi';
 
 export interface AuthUser {
   id: string;
@@ -35,6 +36,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const token = localStorage.getItem(AUTH_TOKEN_KEY);
     if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    if (token === LOCAL_DEMO_TOKEN) {
+      try {
+        const storedUser = localStorage.getItem(LOCAL_DEMO_USER_KEY);
+        const localUser = storedUser ? JSON.parse(storedUser) as AuthUser : null;
+        if (localUser?.id === 'local-demo-user' && localUser.email === 'demo@local') {
+          setUser(localUser);
+          setSession({ access_token: LOCAL_DEMO_TOKEN, token_type: 'bearer', expires_in: 0, user: localUser });
+        } else {
+          localStorage.removeItem(AUTH_TOKEN_KEY);
+        }
+      } catch {
+        localStorage.removeItem(AUTH_TOKEN_KEY);
+        localStorage.removeItem(LOCAL_DEMO_USER_KEY);
+      }
       setLoading(false);
       return;
     }
@@ -85,10 +104,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInDemo = async () => {
     try {
-      const newSession = await apiRequest<AuthSession>('/auth/demo', { method: 'POST' });
-      localStorage.setItem(AUTH_TOKEN_KEY, newSession.access_token);
+      const savedUser = localStorage.getItem(LOCAL_DEMO_USER_KEY);
+      const demoUser: AuthUser = savedUser
+        ? JSON.parse(savedUser) as AuthUser
+        : { id: 'local-demo-user', email: 'demo@local', created_at: new Date().toISOString() };
+      if (demoUser.id !== 'local-demo-user' || demoUser.email !== 'demo@local') {
+        throw new Error("Local demo account data is invalid. Clear this site's storage and try again.");
+      }
+      const newSession: AuthSession = {
+        access_token: LOCAL_DEMO_TOKEN,
+        token_type: 'bearer',
+        expires_in: 0,
+        user: demoUser,
+      };
+      localStorage.setItem(LOCAL_DEMO_USER_KEY, JSON.stringify(demoUser));
+      localStorage.setItem(AUTH_TOKEN_KEY, LOCAL_DEMO_TOKEN);
       setSession(newSession);
-      setUser(newSession.user);
+      setUser(demoUser);
       return { error: null };
     } catch (error) {
       return { error: error instanceof Error ? error.message : 'Demo sign in failed.' };

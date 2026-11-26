@@ -212,8 +212,13 @@ export function AuthPage() {
                 disabled={loading}
                 className="w-full py-2.5 text-sm font-medium rounded-lg border border-forest-300 dark:border-forest-700 text-forest-700 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-forest-900 transition-colors"
               >
-                Continue with Demo Account
+                Continue with Local Demo
               </button>
+            )}
+            {mode === 'signin' && (
+              <p className="text-center text-xs text-forest-400">
+                Local demo works without an API and saves changes in this browser.
+              </p>
             )}
           </form>
 

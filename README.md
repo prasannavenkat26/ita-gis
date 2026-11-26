@@ -13,6 +13,7 @@ An interactive GIS platform for agricultural land management with GPS coordinate
 - **Spatial Analytics** — Crop distribution, area comparisons, irrigation coverage, and location-based summaries with interactive charts
 - **GeoJSON Import/Export** — Import existing boundaries or export farm polygons as GeoJSON
 - **Authentication** — Email/password auth with signed sessions and per-user data access
+- **Local demo mode** — Explore sample farms and edit browser-local demo data without a backend
 - **Dark/Light Themes** — Toggle between themes with system preference detection
 - **Responsive Design** — Desktop-first dashboard that adapts to tablet and mobile with drawers/bottom sheets
 
@@ -64,6 +65,8 @@ The FastAPI application is in `backend/main.py`. SQLite is initialized automatic
 - irrigation points and farm activity history
 
 API requests require a signed bearer token. Records are scoped to the signed-in user. The database and generated development signing key are stored in the ignored `backend/data/` directory. For deployment, set `FARM_GIS_SECRET_KEY` to a long random server-side secret and configure `FARM_GIS_CORS_ORIGINS`.
+
+The **Continue with Local Demo** option works without the API or Supabase. It stores sample data and demo edits in the current browser only; email/password accounts still require the FastAPI backend.
 
 ## Map Provider Configuration
 

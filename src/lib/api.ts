@@ -1,18 +1,20 @@
+import { demoRequest, LOCAL_DEMO_TOKEN } from '@/lib/demoApi';
+import { ApiError } from '@/lib/apiError';
+
 export const AUTH_TOKEN_KEY = 'farm-gis-access-token';
 
-export class ApiError extends Error {
-  constructor(message: string, readonly status: number) {
-    super(message);
-    this.name = 'ApiError';
-  }
-}
+export { ApiError } from '@/lib/apiError';
 
 export async function apiRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const token = localStorage.getItem(AUTH_TOKEN_KEY);
+  if (token === LOCAL_DEMO_TOKEN) {
+    return demoRequest<T>(path, init);
+  }
+
   const headers = new Headers(init.headers);
   if (init.body && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
   }
-  const token = localStorage.getItem(AUTH_TOKEN_KEY);
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
   let response: Response;
